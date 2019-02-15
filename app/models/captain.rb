@@ -5,6 +5,7 @@ class Captain < ActiveRecord::Base
   # has_many :classifications, through: :boat_classifications
 
   def self.catamaran_operators
+    binding.pry
     boats_names = Boat.includes(:classifications).where('classifications.name = ?', 'Catamaran').pluck(:name).uniq
     self.includes(:boats).where(boats: {name: boats_names}).distinct
   end
